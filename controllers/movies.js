@@ -9,6 +9,7 @@ export function saveMovie(req,res){
     .then(profile => {
       profile.movies.push(movie)
       profile.save()
+      console.log(profile)
       res.json(movie)
     })
   })

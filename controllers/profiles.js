@@ -29,4 +29,16 @@ function addPhoto(req, res) {
   })
 }
 
+export function show(req, res) {
+  Profile.findById(req.params.id)
+  .populate({path: 'movies'})
+  .populate('shows')
+  .then(profile => {
+    res.json(profile)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json(err)
+  })
+}
 export { index, addPhoto }
