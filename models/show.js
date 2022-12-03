@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const showSchema = new Schema({
+  id:Number,
   original_title: String,
   release_date: String,
   poster_path:String,
