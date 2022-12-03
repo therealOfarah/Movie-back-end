@@ -1,5 +1,7 @@
 import { Profile } from '../models/profile.js'
+import { Movie } from '../models/movie.js'
 import { v2 as cloudinary } from 'cloudinary'
+import { Show } from '../models/show.js'
 
 function index(req, res) {
   Profile.find({})
@@ -39,6 +41,28 @@ export function show(req, res) {
   .catch(err => {
     console.log(err)
     res.status(500).json(err)
+  })
+}
+export function deleteMovie(req,res){
+  Movie.findById(req.params.id)
+  .then(movie=> {
+    Profile.findById(req.user.profile)
+    .then(profile => {
+      profile.movies.remove(movie)
+      profile.save()
+      res.json(movie)
+    })
+  })
+}
+export function deleteShow(req,res){
+  Show.findById(req.params.id)
+  .then(show=> {
+    Profile.findById(req.user.profile)
+    .then(profile => {
+      profile.shows.remove(show)
+      profile.save()
+      res.json(show)
+    })
   })
 }
 export { index, addPhoto }
